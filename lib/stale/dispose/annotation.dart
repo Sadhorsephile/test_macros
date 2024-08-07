@@ -1,0 +1,3 @@
+class NeedToDispose {
+  const NeedToDispose();
+}

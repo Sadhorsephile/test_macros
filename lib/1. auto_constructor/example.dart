@@ -2,7 +2,7 @@ import 'package:test_macros/1.%20auto_constructor/annotations.dart';
 import 'package:test_macros/1.%20auto_constructor/auto_constructor.dart';
 
 @AutoConstructor()
-class SomeComplicatedClass {
+class AnotherComplicatedClass {
   final int a;
 
   @requiredField
@@ -22,18 +22,13 @@ class SomeComplicatedClass {
   final List<int> f;
 }
 
-void main() {
-  final instance = SomeComplicatedClass(
+void main() async {
+  AnotherComplicatedClass(
     1,
-    [1,2],
-    b: 'b',
+    [],
+    b: 'a',
+    c: 2,
+    d: false,
     e: false,
   );
-
-  print(instance.a);
-  print(instance.b);
-  print(instance.c);
-  print(instance.d);
-  print(instance.e);
-  print(instance.f);
 }

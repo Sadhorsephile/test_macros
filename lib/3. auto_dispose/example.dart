@@ -3,43 +3,43 @@ import 'dart:async';
 import 'package:test_macros/3.%20auto_dispose/annotations.dart';
 import 'package:test_macros/3.%20auto_dispose/auto_dispose.dart';
 
-@AutoDispose('customDepDispose:customDispose')
+@AutoDispose({'customDisposable': 'customDispose'})
 class SomeModel {
   @disposable
-  final CommonDep a;
+  final CommonDep dep;
   @closable
-  final StreamController<int> b;
+  final StreamController<int> _controller = StreamController<int>();
   @cancelable
-  final StreamSubscription<int> c;
-  @customDepDispose
-  final CustomDep d;
+  late final StreamSubscription<int> _subscription;
+  @customDisposable
+  final CustomDep customDep;
+  final CommonDep notForDisposeDep;
 
-  SomeModel({required this.a, required this.b, required this.c, required this.d});
-
-  // void dispose() {
-  //   print('original dispose');
-  // }
+  SomeModel({required this.dep, required this.customDep, required this.notForDisposeDep}) {
+    _subscription = _controller.stream.listen((event) {});
+  }
 }
-
-const customDepDispose = Disposable('customDispose');
 
 class CommonDep {
   void dispose() {}
 }
 
+const customDisposable = CustomDispose();
+
+class CustomDispose {
+  const CustomDispose();
+}
+
 class CustomDep {
-  void customDispose() {
-    print('CustomDep disposed');
-  }
+  void customDispose() {}
 }
 
 void main() {
   final model = SomeModel(
-    a: CommonDep(),
-    b: StreamController<int>(),
-    c: Stream.periodic(const Duration(seconds: 1), (i) => i).listen((event) {}),
-    d: CustomDep(),
+    dep: CommonDep(),
+    customDep: CustomDep(),
+    notForDisposeDep: CommonDep(),
   );
 
-  // model.dispose();
+  model.dispose();
 }

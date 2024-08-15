@@ -5,23 +5,17 @@ import 'package:macros/macros.dart';
 import 'package:test_macros/3.%20auto_dispose/annotations.dart';
 
 macro class AutoDispose implements ClassDeclarationsMacro {
-  final String? disposeMethodNames;
-  const AutoDispose(this.disposeMethodNames);
+  
+  final Map<String, String> disposeMethodNames;
+  const AutoDispose([this.disposeMethodNames = const {}]);
 
   @override
   FutureOr<void> buildDeclarationsForClass(ClassDeclaration clazz, MemberDeclarationBuilder builder) async {
-
-    final parsedDisposeMethodNames = disposeMethodNames == null ? {} : Map.fromEntries(disposeMethodNames!.split(',').map((e) {
-      final parts = e.split(':');
-      return MapEntry(parts.first, parts.last);
-    }));
-
-
     final allMethodNames = {
       disposableAnnotationName: disposeMethod,
       closableAnnotationName: closeMethod,
       cancelableAnnotationName: cancelMethod,
-      ...parsedDisposeMethodNames,
+      ...disposeMethodNames,
     };
 
     final fields = await builder.fieldsOf(clazz);
@@ -85,9 +79,7 @@ macro class AutoDispose implements ClassDeclarationsMacro {
       '\t}',
     ];
 
-
-
-
     builder.declareInType(DeclarationCode.fromParts(code));
   }
+ 
 }

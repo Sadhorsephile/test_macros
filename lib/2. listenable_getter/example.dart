@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:test_macros/2.%20listenable_getter/listenable_getter.dart';
 

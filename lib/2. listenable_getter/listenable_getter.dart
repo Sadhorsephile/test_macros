@@ -41,6 +41,7 @@ macro class ListenableGetter implements FieldDefinitionMacro, FieldDeclarationsM
       return;
     }
 
+    // ignore: deprecated_member_use
     final type = await builder.resolveIdentifier(
         Uri.parse('package:flutter/src/foundation/change_notifier.dart'), 'ValueListenable');
 

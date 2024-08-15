@@ -58,9 +58,11 @@ macro class AutoConstructor implements ClassDeclarationsMacro {
 
     code.addAll([
       ...positionalParams,
-      '\t\t{\n',
-      ...namedParams,
-      '\t\t}',
+      if (namedParams.isNotEmpty) ...[
+        '\t\t{\n',
+        ...namedParams,
+        '\t\t}',
+      ],
       '\n\t);',
     ]);
 

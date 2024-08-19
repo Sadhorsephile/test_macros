@@ -41,3 +41,12 @@
 |Фазы:| `ClassDeclarationsMacro`, `MethodDefinitionMacro`|
 |Что делает:| Генерирует GET-запрос с использованием dio.|
 |Работоспособность:| Как и авто-конструктор, полагается на использование аннотаций, а потому пока не работает. Полная версия macrofit на [pub.dev](https://pub.dev/packages/macrofit)|
+
+
+## 6. Equatable
+
+|<!-- -->|<!-- -->|
+|--|---|
+|Фазы:| `ClassTypesMacro`, `ClassDeclarationsMacro`|
+|Что делает:| Генерирует геттеры `props` и `stringify` и добавляет интерфейс `Equatable` для класса.|
+|Работоспособность:| Работает|

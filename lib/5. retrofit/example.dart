@@ -61,6 +61,9 @@ Future<void> main() async {
   
   final userId = post.userId;
 
+  final map = <String, dynamic>{};
+  map.addAll({'user_id': userId});
+
   if (userId != null) {
     final posts = await client.getPostsByUserId(userId);
     print(posts);
